@@ -1,0 +1,84 @@
+﻿@page "/fetchdata"
+@inject HttpClient Http
+@using DruvData.Shared
+@using DruvData.Helpers
+@using Newtonsoft.Json
+@using System.Globalization
+
+<PageTitle>Rankning Viner</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">Vinrankning</MudText>
+<MudText Class="mb-8">Vintabell sorterat på värde.</MudText>
+@if (wines == null)
+{
+    <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+}
+else
+{
+    <MudTable Items="wines" Hover="true" SortLabel="Sort By" Elevation="3" LoadingProgressColor="Color.Info">
+        <HeaderContent>
+            <MudTh><MudTableSortLabel SortBy="new Func<Wine, object>(x=>x.Nr)">Nr</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<Wine, object>(x=>x.Name)">Namn</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<Wine, object>(x=>x.Sort)">Sort</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<Wine, object>(x=>x.Year)">År</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<Wine, object>(x=>x.Size)">Storlek</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<Wine, object>(x=>x.Strength)">Styrka</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<Wine, object>(x=>x.Price)">Pris</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<Wine, object>(x=>x.WorthPrice)">Värde</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Descending" SortBy="new Func<Wine, object>(x=>x.Worth_diff)">Rel. värde</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<Wine, object>(x=>x.Apk)">APK</MudTableSortLabel></MudTh>
+            
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Nr">@context.Nr</MudTd>
+            <MudTd DataLabel="Name">@context.Name</MudTd>
+            <MudTd DataLabel="Sort">@context.Sort</MudTd>
+            <MudTd DataLabel="Year" >@context.Year</MudTd>
+            <MudTd DataLabel="Size">@context.Size</MudTd>
+            <MudTd DataLabel="Strength">@context.Strength</MudTd>
+            <MudTd DataLabel="Price"> @context.Price</MudTd>  @*ToString("C", new CultureInfo("se-SE"))*@
+            <MudTd DataLabel="Worth">@context.WorthPrice.ToString("N0")</MudTd>
+            <MudTd DataLabel="Worth_diff">@context.Worth_diff.ToString("N2")</MudTd>
+            <MudTd DataLabel="Apk">@context.Apk.ToString("N0")</MudTd>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager PageSizeOptions="new int[]{50, 100}" />
+        </PagerContent>
+    </MudTable>
+}
+
+
+@code {
+    private Wine[]? wines;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        wines = await Http.GetFromJsonAsyncNewtonsoft<Wine[]>("sample-data/wines.json");
+    }
+    public class Wine
+    {
+        public int Nr { get; set; }
+        public string Name { get; set; }
+        public string Sort { get; set; }
+        public string Description { get; set; }
+        public int Price { get; set; }
+        public string Size { get; set; }
+        public string Strength { get; set; }
+        public string Link { get; set; }
+        public int Year { get; set; }
+        public string Land { get; set; }
+        public bool Ekologiskt { get; set; }
+        public bool Hallbart_val { get; set; }
+        public double Worth_diff { get; set; }
+        public double WorthPrice => (1 + Worth_diff) * Price;
+        public double Price_normalized { get; set; }
+        public double Apk { get; set; }
+        public int Size_ml { get; set; }
+        
+
+        //public DateTime Date { get; set; }
+        //public int TemperatureC { get; set; }
+        //public string? Summary { get; set; }
+        //public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    }
+}

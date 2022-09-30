@@ -1,0 +1,25 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31717.71
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DruvData", "DruvData.csproj", "{2DD0A9C2-FB81-4D03-9AFC-14DBC6102CCB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2DD0A9C2-FB81-4D03-9AFC-14DBC6102CCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DD0A9C2-FB81-4D03-9AFC-14DBC6102CCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DD0A9C2-FB81-4D03-9AFC-14DBC6102CCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DD0A9C2-FB81-4D03-9AFC-14DBC6102CCB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9147BC24-3BF1-4727-BD74-59469FE2890F}
+	EndGlobalSection
+EndGlobal
